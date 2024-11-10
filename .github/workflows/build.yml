@@ -24,3 +24,17 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
+      - name: Run Checkstyle Linter
+        run: |
+          mvn checkstyle:check || exit 1
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install ESLint
+        run: npm install eslint
+
+      - name: Run ESLint
+        run: npx eslint . || exit 1
